@@ -1,0 +1,30 @@
+---
+layout: default
+title: Admin Panel
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="SaqibJ's personal website and portfolio" />
+  <meta name="author" content="SaqibJ" />
+  <title>SJLabs</title>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <link rel="stylesheet" href="{{ '/static/css/admin.css' | relative_url }}">
+</head>
+<body>
+  <div class="hero">
+    <img src="{{ '/static/images/profile-image.jpg' | relative_url }}" alt="SaqibJ Profile - Developer & Creator" loading="lazy">
+    <div class="hero-content">
+      <h1>Welcome to SaqibJ's Lab</h1>
+      <p>Developer & Creator</p>
+      <a href="#about" aria-label="Learn more about SaqibJ">Learn More</a>
+    </div>
+  </div>
+  
+  <div class="admin-panel" aria-label="Content Management System">
+    <script src="{{ '/static/js/admin.js' | relative_url }}"></script>
+  </div>
+</body>
+</html>

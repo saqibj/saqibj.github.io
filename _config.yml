@@ -1,0 +1,30 @@
+# saqibj.github.io/_config.yml
+title: "SJLabs"
+baseurl: ""  # Leave empty for GitHub Pages root
+url: "https://saqibj.github.io"  # Your domain
+
+# GitHub Pages settings
+repository: saqibj/saqibj.github.io
+branch: main
+
+# Markdown processor
+markdown: kramdown
+
+# Collections (matches your Decap CMS setup)
+collections:
+  projects:
+    output: true  # Generates pages for each project
+
+# Plugins (GitHub Pages supports these)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude Decap CMS admin from Jekyll processing
+exclude:
+  - admin
+  - node_modules
+  - LICENSE
+  - README.md
+  - Gemfile
+  - Gemfile.lock

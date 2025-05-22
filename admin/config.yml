@@ -46,3 +46,18 @@ collections:
         fields:
           - { name: "title", label: "Title", widget: "string" }
           - { name: "body", label: "Content", widget: "markdown" }
+
+# Front matter defaults
+defaults:
+  - scope:
+      path: ""  # an empty string here means all files in the project
+      type: "posts"  # previously `post` in Jekyll
+    values:
+      layout: "post"
+      comments: true
+
+  - scope:
+      path: ""  # an empty string here means all files in the project
+      type: "pages"
+    values:
+      layout: "page"  # previously `default` in Jekyll
