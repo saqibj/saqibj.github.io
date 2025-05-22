@@ -10,6 +10,9 @@ branch: main
 # Markdown processor
 markdown: kramdown
 
+# Theme settings
+theme: minima
+
 # Collections (matches your Decap CMS setup)
 collections:
   projects:
@@ -19,6 +22,7 @@ collections:
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Exclude Decap CMS admin from Jekyll processing
 exclude:
