@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="SaqibJ's personal website and portfolio" />
+  <meta name="author" content="SaqibJ" />
   <title>SJLabs</title>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <style>
@@ -41,7 +43,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8));
+      background: linear-gradient(rgba(44, 62, 80, 0.5), rgba(44, 62, 80, 0.5));
       z-index: 1;
     }
 
@@ -53,12 +55,15 @@
       height: 100%;
       object-fit: cover;
       z-index: 0;
+      filter: brightness(1.1);
+      loading: lazy;
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
       padding: 2rem;
+      max-width: 800px;
     }
 
     .hero-content h1 {
@@ -73,11 +78,28 @@
       margin-bottom: 2rem;
     }
 
+    .hero-content a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background: var(--primary-color);
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero-content a:hover {
+      background-color: #34495e;
+    }
+
     .admin-panel {
       position: fixed;
       top: 1rem;
       right: 1rem;
       z-index: 1000;
+      background: white;
+      padding: 1rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     @media (max-width: 768px) {
@@ -92,15 +114,16 @@
   </style>
 </head>
 <body>
-  <div class="hero">
-    <img src="../assests/Profile Image.jpeg" alt="SaqibJ Profile">
+  <div class="hero" role="banner">
+    <img src="../static/images/profile-image.jpg" alt="SaqibJ Profile - Developer & Creator" loading="lazy">
     <div class="hero-content">
       <h1>Welcome to SaqibJ's Lab</h1>
       <p>Developer & Creator</p>
+      <a href="#about" aria-label="Learn more about SaqibJ">Learn More</a>
     </div>
   </div>
   
-  <div class="admin-panel">
+  <div class="admin-panel" aria-label="Content Management System">
     <script>
       CMS.init({ config: "/admin/config.yml" });
     </script>

@@ -5,7 +5,6 @@ backend:
   base_url: https://github.com   # GitHub API endpoint
   site_domain: saqibj.github.io  # Your GitHub Pages domain
   auth_endpoint: https://github.com/login/oauth/authorize
-  app_id: "Ov23lij6ljluMg2kMgKs"  # Your OAuth Client ID
   auth_scope: repo               # Required for private repo access
 
 # Media storage (uploads)
