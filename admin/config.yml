@@ -1,0 +1,49 @@
+backend:
+  name: github
+  repo: saqibj/saqibj.github.io  # Your repository
+  branch: main                   # Default branch
+  base_url: https://github.com   # GitHub API endpoint
+  site_domain: saqibj.github.io  # Your GitHub Pages domain
+  auth_endpoint: https://github.com/login/oauth/authorize
+  app_id: "Ov23lij6ljluMg2kMgKs"  # Your OAuth Client ID
+  auth_scope: repo               # Required for private repo access
+
+# Media storage (uploads)
+media_folder: "static/images/uploads"  # Where files are stored
+public_folder: "/images/uploads"       # Public URL path
+
+# Content collections
+collections:
+  # Blog posts (Jekyll-style)
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "_posts/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "title", label: "Title", widget: "string", required: true }
+      - { name: "date", label: "Date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { name: "tags", label: "Tags", widget: "list", required: false }
+      - { name: "body", label: "Content", widget: "markdown" }
+
+  # Projects showcase
+  - name: "projects"
+    label: "Projects"
+    folder: "_data/projects"
+    create: true
+    fields:
+      - { name: "name", label: "Project Name", widget: "string" }
+      - { name: "description", label: "Description", widget: "text" }
+      - { name: "url", label: "Project URL", widget: "string" }
+      - { name: "tech", label: "Technologies", widget: "list" }
+
+  # Static pages
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "About"
+        name: "about"
+        file: "about.md"
+        fields:
+          - { name: "title", label: "Title", widget: "string" }
+          - { name: "body", label: "Content", widget: "markdown" }
