@@ -4,10 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <!-- Include the script that enables Netlify Identity on this page. -->
+    <!-- Include the script that enables Netlify Identity on this page -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- Include the script that lets us talk to Decap CMS -->
+    <!-- Include Decap CMS from CDN -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Include GitHub backend separately -->
+    <script src="https://unpkg.com/decap-cms-backend-github@^3.0.0/dist/decap-cms-backend-github.umd.js"></script>
     <style>
       html, body, #nc-root {
         margin: 0;
@@ -33,6 +35,9 @@
         if (typeof CMS !== 'undefined') {
           console.log('CMS loaded successfully');
           
+          // Register GitHub backend
+          CMS.registerBackend('github', window.GitHubBackend);
+          
           // Initialize the CMS object
           CMS.init({
             config: {
@@ -41,7 +46,8 @@
                 repo: 'saqibj/saqibj.github.io',
                 branch: 'main',
                 base_url: window.location.origin,
-                auth_endpoint: 'api/auth'
+                auth_endpoint: 'api/auth',
+                site_domain: 'saqibj.github.io'
               },
               media_folder: 'static/images/uploads',
               public_folder: '/images/uploads',
