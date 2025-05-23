@@ -24,9 +24,8 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# Exclude Decap CMS admin from Jekyll processing
+# Exclude files from Jekyll processing
 exclude:
-  - admin
   - node_modules
   - LICENSE
   - README.md
