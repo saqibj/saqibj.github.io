@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="description" content="SaqibJ's personal website and portfolio" />
+  <meta name="description" content="SJLabs" />
   <meta name="author" content="SaqibJ" />
   <title>SJLabs</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <style>
     :root {
@@ -115,17 +116,27 @@
 </head>
 <body>
   <div class="hero" role="banner">
-    <img src="../static/images/profile-image.jpg" alt="SaqibJ Profile - Developer & Creator" loading="lazy">
+    <img src="../static/images/profile-image.jpg" alt="SJLabs" loading="lazy">
     <div class="hero-content">
-      <h1>Welcome to SaqibJ's Lab</h1>
+      <h1>Welcome to SJLabs</h1>
       <p>Developer & Creator</p>
-      <a href="#about" aria-label="Learn more about SaqibJ">Learn More</a>
+      <a href="#about" aria-label="Learn more about SJLabs">Learn More</a>
     </div>
   </div>
   
   <div class="admin-panel" aria-label="Content Management System">
     <script>
-      CMS.init({ config: "/admin/config.yml" });
+      // Initialize Decap CMS
+      if (typeof CMS !== 'undefined') {
+        CMS.init();
+      } else {
+        // Fallback in case CMS script hasn't loaded
+        document.addEventListener('DOMContentLoaded', function() {
+          if (typeof CMS !== 'undefined') {
+            CMS.init();
+          }
+        });
+      }
     </script>
   </div>
 </body>
