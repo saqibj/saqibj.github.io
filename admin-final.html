@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <!-- Include the script that enables Netlify Identity on this page -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Include Decap CMS from CDN -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <style>
+      html, body, #nc-root {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      #nc-root {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .loading {
+        padding: 2rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Create a container the CMS will be mounted to -->
+    <div id="nc-root">
+      <div class="loading">Loading CMS...</div>
+    </div>
+
+    <script>
+    // Wait for the CMS script to load
+    function checkCMSLoaded() {
+      if (typeof CMS !== 'undefined') {
+        initializeCMS();
+      } else {
+        setTimeout(checkCMSLoaded, 100);
+      }
+    }
+
+    function initializeCMS() {
+      try {
+        // Initialize the CMS
+        CMS.init({
+          config: {
+            backend: {
+              name: 'github',
+              repo: 'saqibj/saqibj.github.io',
+              branch: 'main',
+              base_url: 'https://saqibj.github.io',
+              auth_endpoint: 'api/auth',
+            },
+            media_folder: 'static/images/uploads',
+            public_folder: '/images/uploads',
+            collections: [
+              {
+                name: 'blog',
+                label: 'Blog',
+                folder: '_posts/blog',
+                create: true,
+                slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+                fields: [
+                  { label: 'Title', name: 'title', widget: 'string' },
+                  { label: 'Publish Date', name: 'date', widget: 'datetime' },
+                  { label: 'Body', name: 'body', widget: 'markdown' }
+                ]
+              }
+            ]
+          }
+        });
+      } catch (error) {
+        console.error('CMS initialization error:', error);
+        document.getElementById('nc-root').innerHTML = `
+          <div style="padding: 20px; color: red;">
+            <h2>Error initializing CMS</h2>
+            <p>${error.message}</p>
+          </div>`;
+      }
+    }
+
+    // Start checking if CMS is loaded
+    checkCMSLoaded();
+
+    // Set a timeout in case the CMS never loads
+    setTimeout(function() {
+      if (typeof CMS === 'undefined') {
+        document.getElementById('nc-root').innerHTML = `
+          <div style="padding: 20px; color: red;">
+            <h2>Error: CMS failed to load</h2>
+            <p>Please try the following:</p>
+            <ol>
+              <li>Check your internet connection</li>
+              <li>Try a different browser</li>
+              <li>Disable any ad blockers or content blockers</li>
+            </ol>
+          </div>`;
+      }
+    }, 5000);
+    </script>
+  </body>
+</html>
