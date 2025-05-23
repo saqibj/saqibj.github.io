@@ -1,0 +1,9 @@
+---
+name: Sample Project
+description: This is a sample project description
+url: https://example.com
+tech:
+  - HTML
+  - CSS
+  - JavaScript
+---
