@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Test</title>
+    <script src="https://unpkg.com/decap-cms@^2.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <div id="nc-root">
+      <div style="padding: 20px;">
+        <h1>Testing CMS Loading...</h1>
+        <p>If you see this message, the CMS failed to initialize.</p>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, initializing CMS...');
+        console.log('CMS object:', typeof CMS);
+        
+        if (typeof CMS !== 'undefined') {
+          console.log('CMS found, initializing...');
+          try {
+            CMS.init({
+              config: {
+                backend: {
+                  name: 'github',
+                  repo: 'saqibj/saqibj.github.io',
+                  branch: 'main',
+                },
+                media_folder: 'static/images/uploads',
+                public_folder: '/images/uploads',
+                collections: [
+                  {
+                    name: 'test',
+                    label: 'Test',
+                    folder: '_test',
+                    create: true,
+                    fields: [
+                      { label: 'Title', name: 'title', widget: 'string' },
+                      { label: 'Body', name: 'body', widget: 'markdown' }
+                    ]
+                  }
+                ]
+              }
+            });
+          } catch (error) {
+            console.error('CMS init error:', error);
+            document.getElementById('nc-root').innerHTML = `
+              <div style="color: red; padding: 20px;">
+                <h2>CMS Initialization Error</h2>
+                <p>${error.message}</p>
+              </div>`;
+          }
+        } else {
+          console.error('CMS not found');
+        }
+      });
+    </script>
+  </body>
+</html>
