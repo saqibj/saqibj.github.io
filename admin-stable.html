@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <!-- Using a specific stable version of Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@2.10.0/dist/decap-cms.js"></script>
+    <style>
+      html, body, #nc-root {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      #nc-root {
+        padding: 20px;
+      }
+      .loading {
+        text-align: center;
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nc-root">
+      <div class="loading">Loading CMS...</div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const root = document.getElementById('nc-root');
+      
+      // Check if CMS is loaded
+      if (typeof CMS === 'undefined') {
+        root.innerHTML = `
+          <div style="color: red; padding: 20px;">
+            <h2>Error: CMS script failed to load</h2>
+            <p>Please try the following:</p>
+            <ol>
+              <li>Refresh the page</li>
+              <li>Check your internet connection</li>
+              <li>Try a different browser</li>
+              <li>Disable any ad blockers</li>
+            </ol>
+          </div>`;
+        return;
+      }
+
+      try {
+        // Initialize the CMS with minimal configuration
+        CMS.init({
+          config: {
+            backend: {
+              name: 'github',
+              repo: 'saqibj/saqibj.github.io',
+              branch: 'main',
+            },
+            media_folder: 'static/images/uploads',
+            public_folder: '/images/uploads',
+            collections: [
+              {
+                name: 'blog',
+                label: 'Blog',
+                folder: '_posts/blog',
+                create: true,
+                slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+                fields: [
+                  { label: 'Title', name: 'title', widget: 'string' },
+                  { label: 'Publish Date', name: 'date', widget: 'datetime' },
+                  { label: 'Body', name: 'body', widget: 'markdown' }
+                ]
+              }
+            ]
+          }
+        });
+      } catch (error) {
+        console.error('CMS initialization error:', error);
+        root.innerHTML = `
+          <div style="color: red; padding: 20px;">
+            <h2>Error initializing CMS</h2>
+            <p>${error.message}</p>
+            <p>Please check the browser console for more details.</p>
+          </div>`;
+      }
+    });
+    </script>
+  </body>
+</html>
