@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
+    <!-- Include Decap CMS from official CDN -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
       html, body, #nc-root {
         margin: 0;
@@ -17,58 +19,53 @@
     </style>
   </head>
   <body>
+    <!-- Create a container for the CMS -->
     <div id="nc-root"></div>
+    
     <script>
-      // Wait for the CMS to be fully loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        // Check if CMS is loaded
-        if (typeof CMS === 'undefined') {
-          console.error('CMS not loaded');
-          document.getElementById('nc-root').innerHTML = 
-            '<div style="padding: 20px; color: red;">Error: CMS script failed to load. Please check your internet connection and try again.</div>';
-          return;
-        }
+    // Wait for the CMS to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if CMS is loaded
+      if (typeof CMS === 'undefined') {
+        console.error('CMS not loaded');
+        document.getElementById('nc-root').innerHTML = 
+          '<div style="padding: 20px; color: red;">Error: CMS script failed to load. Please check your internet connection and try again.</div>';
+        return;
+      }
 
-        try {
-          // Initialize the CMS
-          CMS.registerBackend('github', window.CMSGitHubBackend);
-          
-          CMS.init({
-            config: {
-              backend: {
-                name: 'github',
-                repo: 'saqibj/saqibj.github.io',
-                branch: 'main',
-                base_url: window.location.origin,
-                auth_endpoint: 'api/auth'
-              },
-              // Disable loading from config.yml for now
-              load_config_file: false,
-              media_folder: 'static/images/uploads',
-              public_folder: '/images/uploads',
-              // Simple blog collection for testing
-              collections: [
-                {
-                  name: 'blog',
-                  label: 'Blog',
-                  folder: '_posts/blog',
-                  create: true,
-                  slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
-                  fields: [
-                    { label: 'Title', name: 'title', widget: 'string' },
-                    { label: 'Publish Date', name: 'date', widget: 'datetime' },
-                    { label: 'Body', name: 'body', widget: 'markdown' }
-                  ]
-                }
-              ]
-            }
-          });
-        } catch (error) {
-          console.error('CMS initialization error:', error);
-          document.getElementById('nc-root').innerHTML = 
-            '<div style="padding: 20px; color: red;">Error initializing CMS: ' + error.message + '</div>';
-        }
-      });
+      try {
+        // Initialize the CMS with minimal configuration
+        CMS.init({
+          config: {
+            backend: {
+              name: 'github',
+              repo: 'saqibj/saqibj.github.io',
+              branch: 'main'
+            },
+            media_folder: 'static/images/uploads',
+            public_folder: '/images/uploads',
+            collections: [
+              {
+                name: 'blog',
+                label: 'Blog',
+                folder: '_posts/blog',
+                create: true,
+                slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+                fields: [
+                  { label: 'Title', name: 'title', widget: 'string' },
+                  { label: 'Publish Date', name: 'date', widget: 'datetime' },
+                  { label: 'Body', name: 'body', widget: 'markdown' }
+                ]
+              }
+            ]
+          }
+        });
+      } catch (error) {
+        console.error('CMS initialization error:', error);
+        document.getElementById('nc-root').innerHTML = 
+          '<div style="padding: 20px; color: red;">Error initializing CMS: ' + error.message + '</div>';
+      }
+    });
     </script>
   </body>
 </html>
