@@ -1,143 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="description" content="SJLabs" />
-  <meta name="author" content="SaqibJ" />
-  <title>SJLabs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager</title>
+  <!-- Include the script that enables Netlify Identity on this page -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Include the script that lets us talk to Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <style>
-    :root {
-      --primary-color: #2c3e50;
-      --text-color: #333;
-      --light-bg: #f5f6fa;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: var(--text-color);
-    }
-
-    .hero {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(rgba(44, 62, 80, 0.5), rgba(44, 62, 80, 0.5));
-      z-index: 1;
-    }
-
-    .hero img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-      filter: brightness(1.1);
-      loading: lazy;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 2rem;
-      max-width: 800px;
-    }
-
-    .hero-content h1 {
-      color: white;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-content p {
-      color: white;
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero-content a {
-      color: white;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      background: var(--primary-color);
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
-
-    .hero-content a:hover {
-      background-color: #34495e;
-    }
-
-    .admin-panel {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      z-index: 1000;
-      background: white;
-      padding: 1rem;
-      border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    @media (max-width: 768px) {
-      .hero-content h1 {
-        font-size: 2rem;
-      }
-      
-      .hero-content p {
-        font-size: 1rem;
-      }
-    }
-  </style>
 </head>
 <body>
-  <div class="hero" role="banner">
-    <img src="../static/images/profile-image.jpg" alt="SJLabs" loading="lazy">
-    <div class="hero-content">
-      <h1>Welcome to SJLabs</h1>
-      <p>Developer & Creator</p>
-      <a href="#about" aria-label="Learn more about SJLabs">Learn More</a>
-    </div>
-  </div>
-  
-  <div class="admin-panel" aria-label="Content Management System">
-    <script>
-      // Initialize Decap CMS
-      if (typeof CMS !== 'undefined') {
-        CMS.init();
-      } else {
-        // Fallback in case CMS script hasn't loaded
-        document.addEventListener('DOMContentLoaded', function() {
-          if (typeof CMS !== 'undefined') {
-            CMS.init();
-          }
-        });
-      }
-    </script>
-  </div>
+  <!-- Include the script that builds the page and powers Decap CMS -->
+  <script>
+    // Initialize the CMS object
+    CMS.init();
+    // Now the application has started!
+  </script>
 </body>
 </html>
