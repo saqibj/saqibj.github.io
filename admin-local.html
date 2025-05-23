@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local CMS Test</title>
+    <!-- Try loading from cdnjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/decap-cms/3.6.3/decap-cms.js" 
+            integrity="sha512-5gvQ6w5+zn6Z4nf4mjJKuV7B9BjIZ8W2mmkMFEMz1p0wGP+n7pO4J1C4h5e7+2GwZfjVz3JmJL7TtcLR0zVw==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer">
+    </script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      #cms-status {
+        padding: 20px;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+      .loading { background-color: #e6f3ff; }
+      .error { background-color: #ffebee; color: #c62828; }
+      .success { background-color: #e8f5e9; color: #2e7d32; }
+      pre {
+        background: #f5f5f5;
+        padding: 15px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+      code {
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Decap CMS Test</h1>
+    <div id="cms-status" class="loading">
+      <h2>Loading CMS...</h2>
+      <p>Please wait while we load the CMS. This may take a moment.</p>
+    </div>
+    <div id="nc-root"></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const statusEl = document.getElementById('cms-status');
+      
+      // Check if CMS loaded
+      if (typeof CMS === 'undefined') {
+        const errorMsg = 'Error: Failed to load Decap CMS from CDN. The CMS object is not available.';
+        console.error(errorMsg);
+        statusEl.innerHTML = `
+          <div class="error">
+            <h2>CMS Loading Failed</h2>
+            <p>${errorMsg}</p>
+            <h3>Next Steps:</h3>
+            <ol>
+              <li>Check your internet connection</li>
+              <li>Try a different browser</li>
+              <li>Disable any ad blockers or content blockers</li>
+              <li>Check the browser console for more details</li>
+            </ol>
+            <h3>Alternative Solutions:</h3>
+            <p>Since the CDN approach isn't working, we can try:</p>
+            <ol>
+              <li>Using a different CMS that's easier to self-host</li>
+              <li>Setting up a local development environment with Jekyll's built-in server</li>
+              <li>Using GitHub's web interface to edit content directly</li>
+            </ol>
+          </div>`;
+        return;
+      }
+
+      // If we get here, CMS loaded successfully
+      try {
+        console.log('CMS loaded successfully:', CMS);
+        statusEl.className = 'success';
+        statusEl.innerHTML = `
+          <h2>CMS Loaded Successfully!</h2>
+          <p>Initializing the CMS interface...</p>`;
+        
+        // Initialize the CMS
+        CMS.init({
+          config: {
+            backend: {
+              name: 'github',
+              repo: 'saqibj/saqibj.github.io',
+              branch: 'main',
+            },
+            media_folder: 'static/images/uploads',
+            public_folder: '/images/uploads',
+            collections: [
+              {
+                name: 'test',
+                label: 'Test',
+                folder: '_test',
+                create: true,
+                fields: [
+                  { label: 'Title', name: 'title', widget: 'string' },
+                  { label: 'Body', name: 'body', widget: 'markdown' }
+                ]
+              }
+            ]
+          }
+        });
+      } catch (error) {
+        console.error('CMS initialization error:', error);
+        statusEl.className = 'error';
+        statusEl.innerHTML = `
+          <h2>CMS Initialization Error</h2>
+          <p>${error.message}</p>
+          <h3>Error Details:</h3>
+          <pre><code>${error.stack || 'No stack trace available'}</code></pre>
+          <h3>Next Steps:</h3>
+          <ol>
+            <li>Check the browser console for more details</li>
+            <li>Try clearing your browser cache and refreshing</li>
+            <li>Try a different browser</li>
+          </ol>`;
+      }
+    });
+    </script>
+  </body>
+</html>
