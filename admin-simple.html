@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <!-- Include the script that enables Netlify Identity on this page. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Include the script that lets us talk to Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script>
+      // Initialize the CMS object
+      CMS.init({
+        // The ID of the DOM element to mount the CMS on.
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'saqibj/saqibj.github.io',
+            branch: 'main',
+            base_url: 'https://saqibj.github.io',
+            auth_endpoint: 'api/auth',
+          },
+          // When the URL is a github.io address, add this setting
+          local_backend: false,
+          media_folder: 'static/images/uploads',
+          public_folder: '/images/uploads',
+          collections: [
+            {
+              name: 'blog',
+              label: 'Blog',
+              folder: '_posts/blog',
+              create: true,
+              slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+              fields: [
+                { label: 'Title', name: 'title', widget: 'string' },
+                { label: 'Publish Date', name: 'date', widget: 'datetime' },
+                { label: 'Body', name: 'body', widget: 'markdown' }
+              ]
+            }
+          ]
+        }
+      });
+    </script>
+  </body>
+</html>
