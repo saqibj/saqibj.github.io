@@ -4,37 +4,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <!-- Use jsdelivr CDN instead of unpkg -->
+    <!-- Using jsdelivr CDN with explicit version -->
     <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.js"></script>
-    <style>
-      /* Minimal reset */
-      html, body, #nc-root {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
-    </style>
   </head>
   <body>
     <!-- Only include the root element -->
     <div id="nc-root"></div>
     
     <script>
-      // Minimal initialization
+      // Minimal initialization with GitHub backend
+      CMS.registerBackend('github', window.CMSGitHubBackend);
+      
       CMS.init({
         config: {
           backend: {
             name: 'github',
             repo: 'saqibj/saqibj.github.io',
             branch: 'main',
+            base_url: window.location.origin,
+            auth_endpoint: 'api/auth'
           },
-          // Disable identity widget (we'll use GitHub OAuth)
+          // Disable local backend for production
           local_backend: false,
-          // Load config from config.yml
+          // Enable loading from config.yml
           load_config_file: true,
           media_folder: 'static/images/uploads',
           public_folder: '/images/uploads',
-          // Simple collection for testing
+          // Simple blog collection for testing
           collections: [
             {
               name: 'blog',
